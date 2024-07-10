@@ -50,7 +50,7 @@ export const data = [
   {
     id: 7,
     img: 'https://imgs.search.brave.com/9l4YUoPtL7YXJgpuTCq69GUQYP411vfkByr_HSSPUlw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMyLnJhemVyem9u/ZS5jb20vaW1hZ2Vz/L3BueC5hc3NldHMv/MWUzYzJhMzIyOWJk/M2FmN2FlMmI5NTVm/YWU4Y2E2MTYvcmF6/ZXItYmxhY2t3aWRv/dy12My1wcm8tcHJv/ZHVjdC1oZXJvLW1v/YmlsZS5qcGc',
-    nameProduct: 'Teclado Mecánico Razer BlackWidow V3',
+    nameProduct: 'Teclado Razer BlackWidow V3',
     category: 'Periféricos',
     price: 150,
     quantity: 1,
@@ -106,7 +106,7 @@ export const data = [
   {
     id: 14,
     img: 'https://imgs.search.brave.com/8AsVZT6SMGhUE-pTdQzOxdqYWqSnPB8ZQ4W-GU20plA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cHJvamVjdG9yc2Ny/ZWVuLmNvbS9yZXNp/emU_cG89L1NoYXJl/ZC9pbWFnZXMvcHJv/ZHVjdHMvZXBzb24v/NTA1MFVCLmpwZw',
-    nameProduct: 'Proyector Epson Home Cinema 5050UB',
+    nameProduct: 'Proyector Epson Cinema 5050UB',
     category: 'Proyectores',
     price: 2000,
     quantity: 1,
@@ -122,7 +122,7 @@ export const data = [
   {
     id: 16,
     img: 'https://imgs.search.brave.com/bRa3ZtZ53d-NzJ0-t8IR1WPw7rPU8jQYVE6teeRtBcc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtbmEuc3NsLWlt/YWdlcy1hbWF6b24u/Y29tL2ltYWdlcy9J/LzYxdmoyQlBEcHVM/LmpwZw',
-    nameProduct: 'Batería Externa Anker PowerCore 26800mAh',
+    nameProduct: 'Batería Externa Anker 26800mAh',
     category: 'Accesorios',
     price: 50,
     quantity: 1,
@@ -146,7 +146,7 @@ export const data = [
   {
     id: 19,
     img: 'https://imgs.search.brave.com/8Yc3knC6MCg_yyPjEhoNhw76tXA2KWI0NQs2omRTfR4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NTFzbS1QLWFSb0wu/anBn',
-    nameProduct: 'Cargador Inalámbrico Belkin BoostCharge',
+    nameProduct: 'Cargador Inalámbrico Belkin',
     category: 'Accesorios',
     price: 40,
     quantity: 1,
@@ -154,7 +154,7 @@ export const data = [
   {
     id: 20,
     img: 'https://imgs.search.brave.com/T94oJj957ccPsdIQB1PgMHQTVloiVGoeWKxfkBLin-Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pNS53/YWxtYXJ0aW1hZ2Vz/LmNvbS5teC9tZy9n/bS8zcHAvYXNyLzg5/YTE1OTNkLWJiMGUt/NGY0Yi04Yzc2LTc2/NDMyNzU5ODJlYS5h/NjYyNTQ2MTRmZGNi/ZWY3Nzc5ZWZhMTAw/NjQzYWVhYy5qcGVn/P29kbkhlaWdodD02/MTImb2RuV2lkdGg9/NjEyJm9kbkJnPUZG/RkZGRg',
-    nameProduct: 'Kit de Realidad Virtual Oculus Quest 2',
+    nameProduct: 'Kit Realidad Virtual Oculus Quest 2',
     category: 'Realidad Virtual',
     price: 300,
     quantity: 1,

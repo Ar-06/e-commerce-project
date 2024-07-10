@@ -4,7 +4,7 @@ body {
 	margin: 0;
   	font-family: 'Roboto', sans-serif;
   	background-color: #f1f1f1;
-	padding-top: 90px;	
+	padding-top: 658px;	
 }
 
 .app-container {
@@ -14,7 +14,6 @@ body {
 }
 
 .container-items {
-	max-height: 450px;
 	overflow-y: auto;
 	display: flex;
 	flex-wrap: wrap;
@@ -224,3 +223,93 @@ body {
 	border-radius: 4px;
 }
 
+.footer-tienda {
+  background-color: #f0f0f0; 
+  color: black; 
+  padding: 20px 0; 
+  font-family: Arial, sans-serif; 
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-around; 
+  max-width: 1200px; 
+  margin: auto; 
+}
+
+.footer-column h3 {
+  margin-bottom: 15px;
+  border-bottom: 2px solid #333; 
+}
+
+.footer-column ul {
+  list-style: none; 
+  padding: 0; 
+}
+
+.footer-column li a {
+  color: black; 
+  text-decoration: none;
+  opacity: 0.75; 
+}
+
+.footer-column li a:hover {
+  opacity: 1; 
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center; 
+  gap: 10px; 
+}
+
+.footer-social button {
+  background-color: transparent; 
+  border: none; 
+  padding: 10px; 
+  border-radius: 5px; 
+  cursor: pointer; 
+}
+
+.footer-social button:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease;
+}
+
+.footer-social .faFacebook,
+.footer-social .faInstagram {
+  color: #fff; 
+}
+
+.btn-flotante {
+	font-size: 12px;  
+	border-radius: 160px;
+	border-color: white;
+	background-color: transparent; 
+	padding: 18px 20px; 
+	position: fixed;
+	bottom: 40px;
+	right: 13px;
+	transition: all 300ms ease 0ms;
+	z-index: 99;
+}
+
+.btn{
+	border: none;
+	background-color: transparent;
+}
+
+.btn-flotante:hover {
+	background-color: white; 
+	box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+	transform: translateY(-7px);
+}
+@media only screen and (max-width: 600px) {
+ 	.btn-flotante {
+		font-size: 14px;
+		padding: 12px 20px;
+		bottom: 20px;
+		right: 20px;
+	}
+}
