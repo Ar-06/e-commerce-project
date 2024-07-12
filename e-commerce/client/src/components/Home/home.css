@@ -4,7 +4,7 @@ body {
 	margin: 0;
   	font-family: 'Roboto', sans-serif;
   	background-color: #f1f1f1;
-	padding-top: 658px;	
+	padding-top: 160px;
 }
 
 .app-container {
@@ -105,7 +105,7 @@ body {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 10px;
+	padding: 10px 20px;
 	background-color: rgba(239, 234, 234, 0.95);
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	color: #fff;
@@ -139,14 +139,14 @@ body {
 	padding: 20px;
 }
 
-.button-search, .button-carrito {
-	margin-right: 20px;
-	margin-left: -20px;
+.button-login, .button-carrito {
+	margin-right: -7px;
+	margin-left: -30px;
+	margin-bottom: auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background: none;
-	padding: 10px;
+	padding: 20px;
 	font-size: 14px;
 	background-color: transparent;
 	color: #fff;
@@ -168,16 +168,20 @@ body {
 
 }
 
-.menu-lisa{
-	background-color: #f0f0f0;
-	border-radius: 8px;
-	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-	position: absolute;
-	padding: 10px;
-	right: 20px;
-	top: 70px;
-	width: 200px;
-	z-index: 1000;
+.login-container, .menu-lisa {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    padding: 10px;
+    right: 20px;
+    top: 70px;
+    width: 200px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-10px);
+	visibility: hidden;
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .button-menu {
@@ -222,6 +226,34 @@ body {
 	background-color: #ddd;
 	border-radius: 4px;
 }
+
+.login-container.active, .menu-lisa.active {
+    opacity: 1;
+    transform: translateY(0);
+	visibility: visible;
+	transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+
+.login-container li {
+	margin: 10px 0;
+	list-style-type: none;
+
+}
+
+.login-container li a {
+	color: black;
+	text-decoration: none;
+	display: block;
+	padding: 8px;
+	transition: background-color 0.2s ease, color 0.2;
+}
+
+.login-container li a:hover {
+	background-color: #ddd;
+	border-radius: 4px;
+}
+
 
 .footer-tienda {
   background-color: #f0f0f0; 
@@ -286,7 +318,7 @@ body {
 	font-size: 12px;  
 	border-radius: 160px;
 	border-color: white;
-	background-color: transparent; 
+	background-color: #333; 
 	padding: 18px 20px; 
 	position: fixed;
 	bottom: 40px;
@@ -301,7 +333,7 @@ body {
 }
 
 .btn-flotante:hover {
-	background-color: white; 
+	background-color: rgb(97, 90, 90); 
 	box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
 	transform: translateY(-7px);
 }
@@ -312,4 +344,24 @@ body {
 		bottom: 20px;
 		right: 20px;
 	}
+}
+
+.welcome-message {
+	color: black;
+	margin-right: -20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 20px;
+}
+
+.button-logout {
+	color: #fff;
+	padding: 10px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }

@@ -23,7 +23,7 @@ module.exports.login = (req, res) => {
 
                     if (isMatch) {
                         const token = jwt.sign({ user: user }, 'Stack', {
-                            expiresIn: '20min'
+                            expiresIn: '3min'
                         });
 
                         res.send({ message: 'Bienvenido', token: token });
