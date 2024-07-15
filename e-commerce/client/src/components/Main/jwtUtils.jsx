@@ -1,4 +1,4 @@
-// jwtUtils.js
+
 
 // Función para decodificar un token JWT
 export function parseJwt(token) {

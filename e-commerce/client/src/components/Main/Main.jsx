@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Home } from "../Home/home";
 import { LoginRegister } from "../loginRegister/loginRegister";
+import {Admin} from "../admin/admin";
 import { parseJwt } from "./jwtUtils";
 
 
@@ -32,6 +33,7 @@ export function Main() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<LoginRegister />} />
                 <Route path='/home' element={<Home />} />
+                <Route path='/admin' element={<Admin />} />
             </Routes>
         </div>
     );

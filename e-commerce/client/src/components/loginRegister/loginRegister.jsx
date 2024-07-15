@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './loginRegister.module.css';
+import Swal from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export function LoginRegister() {
     const [isLogin, setIsLogin] = useState(true);
@@ -13,88 +16,143 @@ export function LoginRegister() {
     const [user, setUser] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [role, setRole] = useState('user');
 
-    const handdleRegister = async (e) => {
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    }
+
+    const handleRegister = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3000/register', {
-                user: user,
-                email: email,
-                password: password
+                user,
+                email,
+                password,
+                role
             });
-            console.log(response.data);
-            if (response.data.token) {
-                localStorage.setItem('token', response.data.token);
-                history.push('/home');
+            //console.log('Response Data:', response.data); 
+            if (response.data.message === 'Usuario registrado') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro exitoso!',
+                    text: 'Por favor, inicia sesión para continuar',
+                    confirmButtonText: 'Iniciar Sesión'
+                }) .then (() => {
+                    setIsLogin(true);
+                    setUser('');
+                    setEmail('');
+                    setPassword('');
+                })
             }
-        } catch (e) {
-            console.log(e);
-        }
+        } catch (error) {
+            if(error.response && error.response.data.message === 'El nombre de usuario ya existe') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El nombre de usuario ya existe. Por favor, elige otro'
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al registrar usuario. Por favor, inténtalo de nuevo'
+            })
+        }}
     }
 
-    const handdleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        const data = {
-            user: user,
-            password: password
-        }
-
-        fetch('http://localhost:3000/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.json())
-            .then(result => {
-                console.log(result.token);
-
-                if (result.token) {
-                    localStorage.setItem('token', result.token);
-                    navigate('/home');
-                } else {
-                    alert('Usuario o contraseña incorrectos');
-                }
-            })
-            .catch(error => {
-                console.log('Error:', error);
+        try {
+            const response = await axios.post('http://localhost:3000/login', {
+                user,
+                password
             });
+            if (response.data.token) {
+                localStorage.setItem('token', response.data.token);
+                if(response.data.role === 'admin' || response.data.role === 'proveedor') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Bienvenido',
+                        text: 'Inicio de sesión exitoso',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        navigate('/admin');
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Bienvenido',
+                        text: 'Inicio de sesión exitoso',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        navigate('/home');
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Usuario o contraseña incorrectos. Por favor, inténtalo de nuevo'
+                })
+            }
+        } catch (error) { 
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error al iniciar sesión. Por favor, inténtalo de nuevo'
+            })
+        }
     }
 
     const handleSignup = () => {
         setIsLogin(false);
     };
 
-    const handleLogin = () => {
+    const handleLoginClick = () => {
         setIsLogin(true);
     };
 
     return (
         <div className={styles.loginRegisterContainer}>
             <div className={styles.sidebar}>
-                <button onClick={handleLogin} className={buttonClassLogin}>Iniciar Sesión</button>
+                <button onClick={handleLoginClick} className={buttonClassLogin}>Iniciar Sesión</button>
                 <button onClick={handleSignup} className={buttonClassRegister}>Registrarse</button>
+                <span className={styles.sidebarSpan}>¿No tienes una cuenta? ¡Regístrate!</span>
             </div>
             <div className={`${styles.formWrapper} ${isLogin ? styles.login : styles.signup}`}>
                 <div className={`${styles.form} ${styles.formSignup} ${isLogin ? '' : styles.active}`}>
                     <div className={styles.formHeading}>¡Bienvenido! Regístrate</div>
-                    <form>
-                        <input name='user' value={user} onChange={(event) => setUser(event.target.value)} type="text" placeholder='Nombre de Usuario' />
-                        <input name='email' value={email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder='Email' />
-                        <input name='password' value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder='Contraseña' />
-                        <button onClick={handdleRegister} className={styles.button} type="submit">Registrarse</button>
+                    <form onSubmit={handleRegister}>
+                        <input name='user' value={user} onChange={(event) => setUser(event.target.value)} type="text" placeholder='Nombre de Usuario' required />
+                        <input name='email' value={email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder='Email' required />
+                        <input name='password' value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder='Contraseña' required />
+                        <div className={styles.selectContainer}>
+                            <select name='role' value={role} onChange={(event) => setRole(event.target.value)} required>
+                                <option value='admin'>Administrador</option>
+                                <option value='proveedor'>Proveedor</option>
+                            </select>
+                        </div>
+                        <button className={styles.button} type="submit">Registrarse</button>
                     </form>
                 </div>
                 <div className={`${styles.form} ${styles.formLogin} ${isLogin ? styles.active : ''}`}>
                     <div className={styles.formHeading}>¡Bienvenido! Inicia Sesión</div>
-                    <form autoComplete='off'>
-                        <input onChange={(event) => setUser(event.target.value)} type="text" placeholder='Nombre de Usuario' required />
-                        <input onChange={(event) => setPassword(event.target.value)} type="password" placeholder='Contraseña' required />
-                        <button onClick={handdleLogin} className={styles.button} type="submit">Iniciar Sesión</button>
+                    <form onSubmit={handleLogin} autoComplete='off'>
+                        <input value={user} onChange={(event) => setUser(event.target.value)} type="text" placeholder='Nombre de Usuario' required />
+                        <div className={styles.passwordWrapper}>
+                            <input value={password} onChange={(event) => setPassword(event.target.value)} type={showPassword ? 'text':'password'} placeholder='Contraseña' required />
+                            <button type='button' onClick={toggleShowPassword} className={styles.showPasswordButton}>
+                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                            </button>
+                        </div>
+                        <button className={styles.button} type="submit">Iniciar Sesión</button>
                     </form>
                 </div>
             </div>
-        </div>
+        </div>        
     );
 }

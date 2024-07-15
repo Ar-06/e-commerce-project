@@ -55,7 +55,7 @@ export function Home() {
                 <nav className="nav-tienda">
                     {isLoggedIn ? (
                         <>
-                            <span className="welcome-message">Bienvenido, {username}!</span>
+                            <span className="welcome-message">Bienvenido(a), {username}!</span>
                             <button className="button-logout" onClick={handleLogout}>  
                                 <FontAwesomeIcon icon={faRightFromBracket}  size='2x' style={{color:'black'}} />
                             </button>
