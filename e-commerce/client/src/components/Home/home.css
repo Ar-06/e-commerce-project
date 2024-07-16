@@ -360,6 +360,7 @@ body {
 .button-logout {
 	color: #fff;
 	padding: 10px;
+	background-color: transparent;
 	border: none;
 	border-radius: 8px;
 	cursor: pointer;

@@ -17,7 +17,6 @@ export function LoginRegister() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [role, setRole] = useState('user');
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
@@ -30,7 +29,6 @@ export function LoginRegister() {
                 user,
                 email,
                 password,
-                role
             });
             //console.log('Response Data:', response.data); 
             if (response.data.message === 'Usuario registrado') {
@@ -71,26 +69,17 @@ export function LoginRegister() {
             });
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
-                if(response.data.role === 'admin' || response.data.role === 'proveedor') {
-                    Swal.fire({
+                if(response.data.token) {
+                    Swal.fire ({
                         icon: 'success',
-                        title: 'Bienvenido',
-                        text: 'Inicio de sesión exitoso',
+                        title: 'Bienvenido!',
+                        text: 'Iniciaste sesión correctamente',
                         showConfirmButton: false,
                         timer: 1500
-                    }).then(() => {
-                        navigate('/admin');
+
+                    }).then (() => {
+                        navigate('/home')
                     })
-                } else {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Bienvenido',
-                        text: 'Inicio de sesión exitoso',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then(() => {
-                        navigate('/home');
-                    });
                 }
             } else {
                 Swal.fire({
@@ -130,12 +119,6 @@ export function LoginRegister() {
                         <input name='user' value={user} onChange={(event) => setUser(event.target.value)} type="text" placeholder='Nombre de Usuario' required />
                         <input name='email' value={email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder='Email' required />
                         <input name='password' value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder='Contraseña' required />
-                        <div className={styles.selectContainer}>
-                            <select name='role' value={role} onChange={(event) => setRole(event.target.value)} required>
-                                <option value='admin'>Administrador</option>
-                                <option value='proveedor'>Proveedor</option>
-                            </select>
-                        </div>
                         <button className={styles.button} type="submit">Registrarse</button>
                     </form>
                 </div>

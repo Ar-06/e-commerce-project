@@ -132,6 +132,10 @@ form .button {
     border-radius: 5px;
 }
 
+form .button:hover {
+    background: #555;
+}
+
 
 .passwordWrapper {
     position: relative;
@@ -160,29 +164,3 @@ form .button {
     max-width: 300px;
 }
 
-.selectContainer select {
-    width: 100%;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    appearance: none;
-    background-color: white;
-    cursor: pointer;
-    outline: none;
-}
-
-.selectContainer select::hover {
-    border-color: #333;
-}
-
-.selectContainer select::focus {
-    border-color: #333;
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-}
-
-.selectContainer option {
-    font-size: 16px;
-    background-color: white;
-    color: #333;
-}

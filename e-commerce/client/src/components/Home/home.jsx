@@ -8,6 +8,7 @@ import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { parseJwt } from '../Main/jwtUtils';
 import './home.css';
+import Swal from 'sweetalert2';
 
 export function Home() {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -34,15 +35,19 @@ export function Home() {
         }
     }
 
-    const toggleLogin = () => {
-        navigate('/login');
-    }
-
     const handleLogout = () => {
         localStorage.removeItem('token');
         setIsLoggedIn(false);
         setUsername('');
-        navigate('/');
+        Swal.fire ({
+            icon: 'success',
+            title: 'Sesión cerrada',
+            text: 'Has cerrado sesión',
+            showConfirmButton: false,
+            timer: 1500
+        }).then (() => {
+            navigate('/home')
+        })
     }
 
     return (
@@ -111,10 +116,9 @@ export function Home() {
                         </ul>
                     </div>
                     <div className='footer-column'>
-                        <h3>Acceso</h3>
+                        <h3>Vende tus productos con Nosotros</h3>
                         <ul>
-                            <li><a href='#'>Login</a></li>
-                            <li><a href='#'>Registrarse</a></li>
+                            <Link to = '/addProduct'><li><a href='#'>Vende tus productos</a></li></Link>
                         </ul>
                     </div>
                     <div className='footer-column'>

@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 module.exports.login = (req, res) => {
     const { user, password } = req.body;
 
-    const query = 'SELECT username, password, role FROM users WHERE username = ?';
+    const query = 'SELECT username, password FROM users WHERE username = ?';
 
     try {
         connection.query(query, [user], (error, results) => {
@@ -20,8 +20,7 @@ module.exports.login = (req, res) => {
                 return res.status(404).json({ message: 'Usuario no encontrado' });
             }
 
-            const storedHash = results[0].password;
-            const role = results[0].role; // Obtener el rol del usuario desde la base de datos
+            const storedHash = results[0].password; 
 
             bcrypt.compare(password, storedHash, (err, isMatch) => {
                 if (err) {
@@ -33,11 +32,11 @@ module.exports.login = (req, res) => {
                     const { username } = results[0];
 
                     // Generar el token JWT con el usuario y rol
-                    const token = jwt.sign({ user: username, role: role }, 'Stack', {
+                    const token = jwt.sign({ user: username }, 'Stack', {
                         expiresIn: '1h' // Tiempo de expiración del token ajustado a 1 hora
                     });
 
-                    res.status(200).json({ message: 'Bienvenido', token: token, role: role });
+                    res.status(200).json({ message: 'Bienvenido', token: token });
                 } else {
                     res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
                 }
