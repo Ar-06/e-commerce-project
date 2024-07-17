@@ -6,6 +6,7 @@ import axios from "axios";
 export function AddProductForm() {
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
+  const [productCategory, setProductCategory] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productStock, setProductStock] = useState("");
   const [file, setFile] = useState(null);
@@ -16,16 +17,23 @@ export function AddProductForm() {
     const formData = new FormData();
     formData.append("name", productName);
     formData.append("description", productDescription);
+    formData.append("category", productCategory);
     formData.append("price", productPrice);
     formData.append("stock", productStock);
     formData.append("image", file);
 
     try {
-      const response = await axios.post("http://localhost:3000/products", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        "http://localhost:3000/products",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${token}`,
+          },
+        }
+      );
       console.log("Response:", response.data);
       if (response.data.message === "Producto agregado") {
         Swal.fire({
@@ -35,13 +43,14 @@ export function AddProductForm() {
         }).then(() => {
           setProductName("");
           setProductDescription("");
+          setProductCategory("");
           setProductPrice("");
           setProductStock("");
           setFile(null);
         });
       }
-    } catch {
-      console.log("Error al agregar producto");
+    } catch (error) {
+      console.log("Error al agregar producto", error);
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -76,6 +85,15 @@ export function AddProductForm() {
             value={productDescription}
             required
           ></textarea>
+          <label htmlFor="category">Categoría: </label>
+          <input
+            onChange={(event) => setProductCategory(event.target.value)}
+            type="text"
+            id="category"
+            name="category"
+            value={productCategory}
+            required
+          />
           <label htmlFor="price">Precio: </label>
           <input
             onChange={(event) => setProductPrice(event.target.value)}

@@ -1,5 +1,3 @@
-
-
 // Función para decodificar un token JWT
 export function parseJwt(token) {
     if (!token) {

@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 module.exports.login = (req, res) => {
     const { user, password } = req.body;
 
-    const query = 'SELECT username, password FROM users WHERE username = ?';
+    const query = 'SELECT user_id,username, password FROM users WHERE username = ?';
 
     try {
         connection.query(query, [user], (error, results) => {
@@ -29,11 +29,11 @@ module.exports.login = (req, res) => {
                 }
 
                 if (isMatch) {
-                    const { username } = results[0];
+                    const { user_id,username } = results[0];
 
-                    // Generar el token JWT con el usuario y rol
-                    const token = jwt.sign({ user: username }, 'Stack', {
-                        expiresIn: '1h' // Tiempo de expiración del token ajustado a 1 hora
+                    
+                    const token = jwt.sign({ userId: user_id, user: username }, 'Stack', {
+                        expiresIn: '1h' 
                     });
 
                     res.status(200).json({ message: 'Bienvenido', token: token });
