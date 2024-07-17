@@ -10,7 +10,7 @@ export function AddProductForm() {
   const [productStock, setProductStock] = useState("");
   const [file, setFile] = useState(null);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -21,23 +21,25 @@ export function AddProductForm() {
     formData.append("image", file);
 
     try {
-      const response = axios.post("http://localhost:3000/products", formData, {
+      const response = await axios.post("http://localhost:3000/products", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("Response:", response);
-      Swal.fire({
-        icon: "success",
-        title: "Producto agregado",
-        text: "El producto fue agregado correctamente",
-      }).then(() => {
-        setProductName("");
-        setProductDescription("");
-        setProductPrice("");
-        setProductStock("");
-        setFile(null);
-      });
+      console.log("Response:", response.data);
+      if (response.data.message === "Producto agregado") {
+        Swal.fire({
+          icon: "success",
+          title: "Producto agregado",
+          text: "El producto fue agregado correctamente",
+        }).then(() => {
+          setProductName("");
+          setProductDescription("");
+          setProductPrice("");
+          setProductStock("");
+          setFile(null);
+        });
+      }
     } catch {
       console.log("Error al agregar producto");
       Swal.fire({
@@ -56,7 +58,7 @@ export function AddProductForm() {
     <div className={styles.pageContainer}>
       <div className={styles.formContainer}>
         <h1>Agregar un producto</h1>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={submitHandler}>
           <label htmlFor="name">Nombre del producto: </label>
           <input
             onChange={(event) => setProductName(event.target.value)}
@@ -74,7 +76,7 @@ export function AddProductForm() {
             value={productDescription}
             required
           ></textarea>
-          <label htmlFor="price">Precio:</label>
+          <label htmlFor="price">Precio: </label>
           <input
             onChange={(event) => setProductPrice(event.target.value)}
             type="text"
@@ -101,9 +103,7 @@ export function AddProductForm() {
             accept="image/*"
             required
           />
-          <button onClick={submitHandler} type="submit">
-            Agregar producto
-          </button>
+          <button type="submit">Agregar producto</button>
         </form>
       </div>
     </div>
