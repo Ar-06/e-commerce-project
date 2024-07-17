@@ -1,0 +1,59 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faHeadset } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import "./home.css";
+
+export function Footer() {
+  return (
+    <>
+      <button className="btn">
+        <a href="#" className="btn-flotante">
+          <FontAwesomeIcon icon={faHeadset} size="3x" color="white" />
+        </a>
+      </button>
+      <footer className="footer-tienda">
+        <div className="footer-container">
+          <div className="footer-column">
+            <h3>Productos</h3>
+            <ul>
+              <li>
+                <a href="/home">Home</a>
+              </li>
+              <li>
+                <a href="#">Categorías</a>
+              </li>
+            </ul>
+          </div>
+          <div className="footer-column">
+            <h3>Unete a E-Tec</h3>
+            <ul>
+              <li>
+                <Link to="/addProduct">Vende tus productos</Link>
+              </li>
+            </ul>
+          </div>
+          <div className="footer-column">
+            <h3>Empresa</h3>
+            <ul>
+              <li>
+                <a href="#">Sobre Nosotros</a>
+              </li>
+              <li>
+                <a href="#">Contacto</a>
+              </li>
+            </ul>
+          </div>
+          <div className="footer-social">
+            <button>
+              <FontAwesomeIcon icon={faFacebook} size="2x" />
+            </button>
+            <button>
+              <FontAwesomeIcon icon={faInstagram} size="2x" />
+            </button>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
+}

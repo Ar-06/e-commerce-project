@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Home } from "../Home/home";
 import { LoginRegister } from "../loginRegister/loginRegister";
 import { parseJwt } from "./jwtUtils";
-import AddProductForm from '../ProductList/addProduct';
+import {AddProductForm }from '../ProductList/addProduct';
 
 
 export function Main() {

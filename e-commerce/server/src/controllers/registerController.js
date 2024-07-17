@@ -4,7 +4,7 @@ const connection = require('../models/db');
 const bcrypt = require('bcrypt');
 
 module.exports.register = (req, res) => {
-    const { user, email, password, role } = req.body; 
+    const { user, email, password } = req.body; 
 
     // Verificar si el nombre de usuario ya existe
     const checkUserQuery = 'SELECT * FROM users WHERE username = ?';
@@ -29,9 +29,9 @@ module.exports.register = (req, res) => {
                 return res.status(500).json({ message: 'Error al hashear la contraseña' });
             }
 
-            const insertQuery = 'INSERT INTO users (username, email, password, role) VALUES (?,?,?,?)';
+            const insertQuery = 'INSERT INTO users (username, email, password) VALUES (?,?,?)';
 
-            connection.query(insertQuery, [user, email, hash, role], (error, results) => {
+            connection.query(insertQuery, [user, email, hash], (error, results) => {
                 if (error) {
                     console.error('Error al registrar usuario', error);
                     return res.status(400).json({ message: 'Error al registrar usuario' });
