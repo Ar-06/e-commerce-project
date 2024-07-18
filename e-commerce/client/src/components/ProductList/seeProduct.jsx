@@ -49,8 +49,8 @@ export function SeeProduct() {
   }, []);
 
   return (
-    <div className={styles.pageContainer}>
-      <h1>Mis Productos</h1>
+    <div className={styles.pagesContainer}>
+      <h1 className={styles.title}>Mis Productos</h1>
       <div className={styles.productList}>
         {products.length > 0 ? (
           <table className={styles.productTable}>
