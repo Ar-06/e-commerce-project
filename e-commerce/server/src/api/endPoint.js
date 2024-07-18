@@ -7,6 +7,7 @@ const {product} = require('../controllers/productController');
 const multer = require('multer');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const { getProductsByUser } = require('../controllers/getProductController');
 
 const storage = multer.diskStorage({
     destination: path.join(__dirname,'../../public/images'),
@@ -23,8 +24,10 @@ const authenticateJWT = (req, res, next) => {
         const token = authHeader.split(' ')[1];
         jwt.verify(token, 'Stack', (err, user) => {
             if(err) {
+                console.log('Error al verificar el token', err);
                 return res.sendStatus(403);
             }
+            console.log('Usuario decodificado:', user);
             req.user = user;
             next();
         });
@@ -38,5 +41,6 @@ router.get('/ping', ping);
 router.post('/register', register);
 router.post('/login', login);
 router.post('/products', authenticateJWT ,upload.single('image'), product);
+router.get('/users/products', authenticateJWT, getProductsByUser);
 
 module.exports = router;

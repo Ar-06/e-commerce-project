@@ -28,8 +28,11 @@ export function Footer() {
           <div className="footer-column">
             <h3>Unete a E-Tec</h3>
             <ul>
-              <li>
+              <li> 
                 <Link to="/addProduct">Vende tus productos</Link>
+              </li>
+              <li>
+                <Link to="/seeProduct">Gestiona los productos</Link>
               </li>
             </ul>
           </div>
