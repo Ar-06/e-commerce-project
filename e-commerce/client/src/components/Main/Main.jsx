@@ -35,6 +35,7 @@ export function Main() {
         <Route path="/home" element={<Home />} />
         <Route path="/addProduct" element={<AddProductForm />} />
         <Route path="/seeProduct" element={<SeeProduct />} />
+        <Route path="/editProduct/:id" element={<AddProductForm />} />
       </Routes>
     </div>
   );

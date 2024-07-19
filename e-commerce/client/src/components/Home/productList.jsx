@@ -9,8 +9,7 @@ export function ProductList() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get("http://localhost:3000/products");
-        console.log("Datos recibidos:", response.data);
-        setSeeProduct(response.data); // Asignar directamente los datos recibidos
+        setSeeProduct(response.data); 
       } catch (error) {
         console.error("Error al obtener productos", error);
       }
@@ -23,8 +22,11 @@ export function ProductList() {
       <div className="container-items">
         {seeProduct.length > 0 ? (
           seeProduct.map((product) => (
-            <div className="card" key={product.productId}>
-              <img src={`http://localhost:3000/images/${product.image}`} alt={product.name} />
+            <div className="card" key={product.id}>
+              <img
+                src={`http://localhost:3000/images/${product.image}`}
+                alt={product.name}
+              />
               <div className="info-product">
                 <h3>{product.name}</h3>
                 <p>S/{product.price}</p>

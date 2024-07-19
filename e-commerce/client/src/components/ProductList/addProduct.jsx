@@ -1,15 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./addProduct.module.css";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
 export function AddProductForm() {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [productCategory, setProductCategory] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productStock, setProductStock] = useState("");
   const [file, setFile] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      setIsEditing(true);
+      const fetchProducts = async () => {
+        try {
+          const token = localStorage.getItem("token");
+          const response = await axios.get(
+            `http://localhost:3000/products/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const product = response.data.products;
+          setProductName(product.name);
+          setProductDescription(product.description);
+          setProductCategory(product.category);
+          setProductPrice(product.price);
+          setProductStock(product.stock);
+        } catch (error) {
+          console.error("Error al obtener producto", error);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error al obtener producto",
+          });
+        }
+      };
+      fetchProducts();
+    }
+  }, [id]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -20,41 +57,58 @@ export function AddProductForm() {
     formData.append("category", productCategory);
     formData.append("price", productPrice);
     formData.append("stock", productStock);
-    formData.append("image", file);
+    if (file) {
+      formData.append("image", file);
+    }
 
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post(
-        "http://localhost:3000/products",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "Authorization": `Bearer ${token}`,
-          },
-        }
-      );
-      console.log("Response:", response.data);
-      if (response.data.message === "Producto agregado") {
+      let response;
+      if (isEditing) {
+        response = await axios.put(
+          `http://localhost:3000/users/products/${id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } else {
+        response = await axios.post(
+          "http://localhost:3000/products",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
+
+      if (response && response.data && response.data.message) {
+        const successMessage =
+          response.data.message === "Producto actualizado"
+            ? "Producto actualizado correctamente"
+            : "Producto agregado correctamente";
         Swal.fire({
           icon: "success",
-          title: "Producto agregado",
-          text: "El producto fue agregado correctamente",
+          title: response.data.message,
+          text: successMessage,
         }).then(() => {
-          setProductName("");
-          setProductDescription("");
-          setProductCategory("");
-          setProductPrice("");
-          setProductStock("");
-          setFile(null);
+          navigate(isEditing ? "/seeProduct" : "/home");
         });
+      } else {
+        throw new Error("Respuesta inesperada del servidor");
       }
     } catch (error) {
-      console.log("Error al agregar producto", error);
+      console.error("Error al agregar o actualizar producto", error);
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Error al agregar producto",
+        text: "Error al agregar o actualizar producto",
       });
     }
   };
@@ -66,7 +120,7 @@ export function AddProductForm() {
   return (
     <div className={styles.pageContainer}>
       <div className={styles.formContainer}>
-        <h1>Agregar un producto</h1>
+        <h1>{isEditing ? "Editar Producto" : "Agregar Producto"}</h1>
         <form className={styles.form} onSubmit={submitHandler}>
           <label htmlFor="name">Nombre del producto: </label>
           <input
@@ -119,9 +173,11 @@ export function AddProductForm() {
             id="image"
             name="image"
             accept="image/*"
-            required
+            required={!isEditing}
           />
-          <button type="submit">Agregar producto</button>
+          <button type="submit">
+            {isEditing ? "Actualizar Producto" : "Agregar Producto"}
+          </button>
         </form>
       </div>
     </div>

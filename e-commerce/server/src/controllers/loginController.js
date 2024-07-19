@@ -33,7 +33,7 @@ module.exports.login = (req, res) => {
 
                     
                     const token = jwt.sign({ userId: user_id, user: username }, 'Stack', {
-                        expiresIn: '1h' 
+                        expiresIn: '5h' 
                     });
 
                     res.status(200).json({ message: 'Bienvenido', token: token });

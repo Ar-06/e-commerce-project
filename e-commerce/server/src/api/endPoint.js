@@ -9,6 +9,9 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const { getProductsByUser } = require('../controllers/getProductController');
 const {getProducts} = require('../controllers/seeProductController');
+const {deleteProduct} = require('../controllers/deleteProductController');
+const {updateProduct} = require('../controllers/updateProductController');  
+const { getProductById } = require('../controllers/getIdProductController');
 
 const storage = multer.diskStorage({
     destination: path.join(__dirname,'../../public/images'),
@@ -43,6 +46,9 @@ router.post('/register', register);
 router.post('/login', login);
 router.post('/products', authenticateJWT ,upload.single('image'), product);
 router.get('/users/products', authenticateJWT, getProductsByUser);
+router.get('/products/:id', authenticateJWT, getProductById);
 router.get('/products', getProducts);
+router.delete('/users/products/:id', authenticateJWT, deleteProduct);
+router.put('/users/products/:id', authenticateJWT, upload.single('image'), updateProduct);
 
 module.exports = router;
