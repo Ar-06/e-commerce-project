@@ -12,6 +12,7 @@ const {getProducts} = require('../controllers/seeProductController');
 const {deleteProduct} = require('../controllers/deleteProductController');
 const {updateProduct} = require('../controllers/updateProductController');  
 const { getProductById } = require('../controllers/getIdProductController');
+const { contact } = require('../controllers/contactController');
 
 const storage = multer.diskStorage({
     destination: path.join(__dirname,'../../public/images'),
@@ -45,6 +46,7 @@ router.get('/ping', ping);
 router.post('/register', register);
 router.post('/login', login);
 router.post('/products', authenticateJWT ,upload.single('image'), product);
+router.post('/contact', contact);
 router.get('/users/products', authenticateJWT, getProductsByUser);
 router.get('/products/:id', authenticateJWT, getProductById);
 router.get('/products', getProducts);

@@ -5,6 +5,8 @@ import { LoginRegister } from "../loginRegister/loginRegister";
 import { parseJwt } from "./jwtUtils";
 import { AddProductForm } from "../ProductList/addProduct";
 import { SeeProduct } from "../ProductList/seeProduct";
+import { AboutMe } from "../Home/aboutMe";
+import { Contact } from "../Home/contact";
 
 export function Main() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -36,6 +38,8 @@ export function Main() {
         <Route path="/addProduct" element={<AddProductForm />} />
         <Route path="/seeProduct" element={<SeeProduct />} />
         <Route path="/editProduct/:id" element={<AddProductForm />} />
+        <Route path="/aboutMe" element={<AboutMe />} />
+        <Route path="/contact" element={<Contact/>} />
       </Routes>
     </div>
   );

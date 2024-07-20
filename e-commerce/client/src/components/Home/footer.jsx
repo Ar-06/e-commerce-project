@@ -40,10 +40,10 @@ export function Footer() {
             <h3>Empresa</h3>
             <ul>
               <li>
-                <a href="#">Sobre Nosotros</a>
+                <Link to="/aboutMe">Sobre Nosotros</Link>
               </li>
               <li>
-                <a href="#">Contacto</a>
+                <Link to="/contact">Contactanos!</Link>
               </li>
             </ul>
           </div>

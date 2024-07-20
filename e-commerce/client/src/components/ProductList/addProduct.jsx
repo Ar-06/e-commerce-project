@@ -98,6 +98,12 @@ export function AddProductForm() {
           title: response.data.message,
           text: successMessage,
         }).then(() => {
+          setProductName("");
+          setProductDescription("");
+          setProductCategory("");
+          setProductPrice("");
+          setProductStock("");
+          setFile(null);
           navigate(isEditing ? "/seeProduct" : "/home");
         });
       } else {
