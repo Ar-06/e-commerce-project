@@ -7,6 +7,7 @@ import { AddProductForm } from "../ProductList/addProduct";
 import { SeeProduct } from "../ProductList/seeProduct";
 import { AboutMe } from "../Home/aboutMe";
 import { Contact } from "../Home/contact";
+import { Chat } from "../chat/chat";
 
 export function Main() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -40,6 +41,7 @@ export function Main() {
         <Route path="/editProduct/:id" element={<AddProductForm />} />
         <Route path="/aboutMe" element={<AboutMe />} />
         <Route path="/contact" element={<Contact/>} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </div>
   );

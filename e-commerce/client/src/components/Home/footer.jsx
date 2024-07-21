@@ -7,10 +7,10 @@ import "./home.css";
 export function Footer() {
   return (
     <>
-      <button className="btn">
-        <a href="#" className="btn-flotante">
+      <button className="btn-flotante">
+        <Link to='/chat'>
           <FontAwesomeIcon icon={faHeadset} size="3x" color="white" />
-        </a>
+        </Link>
       </button>
       <footer className="footer-tienda">
         <div className="footer-container">
@@ -20,15 +20,12 @@ export function Footer() {
               <li>
                 <a href="/home">Home</a>
               </li>
-              <li>
-                <a href="#">Categorías</a>
-              </li>
             </ul>
           </div>
           <div className="footer-column">
             <h3>Unete a E-Tec</h3>
             <ul>
-              <li> 
+              <li>
                 <Link to="/addProduct">Vende tus productos</Link>
               </li>
               <li>

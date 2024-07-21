@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import styles from "./seeProduct.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "../Home/footer";
 
 export function SeeProduct() {
   const [products, setProducts] = useState([]);
@@ -12,7 +13,7 @@ export function SeeProduct() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         if (!token) {
           Swal.fire({
             icon: "error",
@@ -54,7 +55,7 @@ export function SeeProduct() {
   }, []);
 
   const handleDeleteProduct = async (id) => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (!token) {
       Swal.fire({
         icon: "error",
@@ -91,56 +92,59 @@ export function SeeProduct() {
   };
 
   return (
-    <div className={styles.pagesContainer}>
-      <h1 className={styles.title}>Mis Productos</h1>
-      <div className={styles.productList}>
-        {products.length > 0 ? (
-          <table className={styles.productTable}>
-            <thead>
-              <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Categoría</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product.id} className={styles.productRow}>
-                  <td>
-                    <img
-                      src={`http://localhost:3000/images/${product.image}`}
-                      alt={product.name}
-                      className={styles.productImage}
-                    />
-                  </td>
-                  <td>{product.name}</td>
-                  <td>{product.description}</td>
-                  <td>{product.category}</td>
-                  <td>S/{product.price}</td>
-                  <td>{product.stock}</td>
-                  <td>
-                    <Link to={`/editProduct/${product.id}`}>
-                      <button className={styles.editButton}>Editar</button>
-                    </Link>
-                    <button
-                      className={styles.deleteButton}
-                      onClick={() => handleDeleteProduct(product.id)}
-                    >
-                      Eliminar
-                    </button>
-                  </td>
+    <>
+      <div className={styles.pagesContainer}>
+        <h1 className={styles.title}>Mis Productos</h1>
+        <div className={styles.productList}>
+          {products.length > 0 ? (
+            <table className={styles.productTable}>
+              <thead>
+                <tr>
+                  <th>Imagen</th>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
+                  <th>Categoría</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th>Acciones</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>No hay productos disponibles</p>
-        )}
+              </thead>
+              <tbody>
+                {products.map((product) => (
+                  <tr key={product.id} className={styles.productRow}>
+                    <td>
+                      <img
+                        src={`http://localhost:3000/images/${product.image}`}
+                        alt={product.name}
+                        className={styles.productImage}
+                      />
+                    </td>
+                    <td>{product.name}</td>
+                    <td>{product.description}</td>
+                    <td>{product.category}</td>
+                    <td>S/{product.price}</td>
+                    <td>{product.stock}</td>
+                    <td>
+                      <Link to={`/editProduct/${product.id}`}>
+                        <button className={styles.editButton}>Editar</button>
+                      </Link>
+                      <button
+                        className={styles.deleteButton}
+                        onClick={() => handleDeleteProduct(product.id)}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>No hay productos disponibles</p>
+          )}
+        </div>
       </div>
-    </div>
+    <Footer />
+    </>
   );
 }

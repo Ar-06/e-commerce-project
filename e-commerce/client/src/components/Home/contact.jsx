@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import style from "./contact.module.css";
 import { Footer } from "./footer";
 import axios from "axios";
+import { Header } from "./header";
 
 export function Contact() {
   const [name, setName] = useState("");
@@ -42,6 +43,7 @@ export function Contact() {
 
   return (
     <>
+      <Header />
       <div className={style.formContainer}>
         <form className={style.form} onSubmit={handleContact}>
           <h2>CONTÁCTANOS</h2>

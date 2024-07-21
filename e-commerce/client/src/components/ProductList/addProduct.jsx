@@ -3,6 +3,8 @@ import styles from "./addProduct.module.css";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { Header } from "../Home/header";
+import { Footer } from "../Home/footer";
 
 export function AddProductForm() {
   const { id } = useParams();
@@ -20,7 +22,7 @@ export function AddProductForm() {
       setIsEditing(true);
       const fetchProducts = async () => {
         try {
-          const token = localStorage.getItem("token");
+          const token = sessionStorage.getItem("token");
           const response = await axios.get(
             `http://localhost:3000/products/${id}`,
             {
@@ -62,7 +64,7 @@ export function AddProductForm() {
     }
 
     try {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       let response;
       if (isEditing) {
         response = await axios.put(
@@ -124,68 +126,72 @@ export function AddProductForm() {
   };
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.formContainer}>
-        <h1>{isEditing ? "Editar Producto" : "Agregar Producto"}</h1>
-        <form className={styles.form} onSubmit={submitHandler}>
-          <label htmlFor="name">Nombre del producto: </label>
-          <input
-            onChange={(event) => setProductName(event.target.value)}
-            type="text"
-            id="name"
-            name="name"
-            value={productName}
-            required
-          />
-          <label htmlFor="description">Descripción:</label>
-          <textarea
-            onChange={(event) => setProductDescription(event.target.value)}
-            id="description"
-            name="description"
-            value={productDescription}
-            required
-          ></textarea>
-          <label htmlFor="category">Categoría: </label>
-          <input
-            onChange={(event) => setProductCategory(event.target.value)}
-            type="text"
-            id="category"
-            name="category"
-            value={productCategory}
-            required
-          />
-          <label htmlFor="price">Precio: </label>
-          <input
-            onChange={(event) => setProductPrice(event.target.value)}
-            type="text"
-            id="price"
-            name="price"
-            value={productPrice}
-            required
-          />
-          <label htmlFor="stock">Stock:</label>
-          <input
-            onChange={(event) => setProductStock(event.target.value)}
-            type="number"
-            id="stock"
-            name="stock"
-            value={productStock}
-            required
-          />
-          <label htmlFor="image">Imagen:</label>
-          <input
-            onChange={selectHandler}
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            required={!isEditing}
-          />
-          <button type="submit">
-            {isEditing ? "Actualizar Producto" : "Agregar Producto"}
-          </button>
-        </form>
+    <>
+      <div className={styles.pageContainer}>
+        <div className={styles.formContainer}>
+          <h1>{isEditing ? "Editar Producto" : "Agregar Producto"}</h1>
+          <form className={styles.form} onSubmit={submitHandler}>
+            <label htmlFor="name">Nombre del producto: </label>
+            <input
+              onChange={(event) => setProductName(event.target.value)}
+              type="text"
+              id="name"
+              name="name"
+              value={productName}
+              required
+            />
+            <label htmlFor="category">Categoría: </label>
+            <input
+              onChange={(event) => setProductCategory(event.target.value)}
+              type="text"
+              id="category"
+              name="category"
+              value={productCategory}
+              required
+            />
+            <label htmlFor="price">Precio: </label>
+            <input
+              onChange={(event) => setProductPrice(event.target.value)}
+              type="text"
+              id="price"
+              name="price"
+              value={productPrice}
+              required
+            />
+            <label htmlFor="stock">Stock:</label>
+            <input
+              onChange={(event) => setProductStock(event.target.value)}
+              type="number"
+              id="stock"
+              name="stock"
+              value={productStock}
+              required
+            />
+            <label htmlFor="description">Descripción:</label>
+            <textarea
+              onChange={(event) => setProductDescription(event.target.value)}
+              id="description"
+              name="description"
+              value={productDescription}
+              required
+            ></textarea>
+            <label htmlFor="image">Imagen:</label>
+            <input
+              onChange={selectHandler}
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              required={!isEditing}
+            />
+            <button type="submit">
+              {isEditing ? "Actualizar Producto" : "Agregar Producto"}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+      <br /> <br /> <br />
+      <Footer />
+    </>
   );
 }

@@ -48,9 +48,8 @@
 
 
 .editButton {
-  background-color: #007bff; /* Azul */
-  border: none;
-  color: white;
+  border: 1px solid #333;
+  color: black;
   padding: 8px 16px;
   text-align: center;
   text-decoration: none;
@@ -64,15 +63,14 @@
 }
 
 .editButton:hover {
-  background-color: #0056b3;
+  background-color: #007bff;
   transform: translateY(-2px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .deleteButton {
-  background-color: #dc3545; /* Rojo */
-  border: none;
-  color: white;
+  border: 1px solid #333;
+  color: black;
   padding: 8px 16px;
   text-align: center;
   text-decoration: none;

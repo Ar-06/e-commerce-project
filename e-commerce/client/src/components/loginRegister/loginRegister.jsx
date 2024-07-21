@@ -74,7 +74,7 @@ export function LoginRegister() {
         password,
       });
       if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("token", response.data.token);
         if (response.data.token) {
           Swal.fire({
             icon: "success",

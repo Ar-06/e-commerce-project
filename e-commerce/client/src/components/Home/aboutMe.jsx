@@ -1,9 +1,11 @@
 import { Footer } from "./footer";
 import styles from "./aboutMe.module.css";
+import { Header } from "./header";
 
 export function AboutMe() {
   return (
     <>
+      <Header />
       <div className={styles.AboutMe}>
         <h1>¿Quiénes Somos?</h1>
         <p>
