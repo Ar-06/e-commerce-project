@@ -190,7 +190,7 @@ export function AddProductForm() {
           </form>
         </div>
       </div>
-      <br /> <br /> <br />
+      <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
       <Footer />
     </>
   );

@@ -5,6 +5,24 @@ const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+
+// Configuración de Mongoose
+mongoose.connect('mongodb://localhost:27017/messages')
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch(err => {
+        console.error('Error connecting to MongoDB:', err);
+    });
+
+const Message = mongoose.model('Message', new mongoose.Schema({
+    userName: String,
+    message: String,
+    room: String,
+    timestamp: { type: Date, default: Date.now }
+}),'chat');
+
 
 const app = express();
 const port = 3000;
@@ -35,22 +53,47 @@ app.use('/', routes);
 io.on('connection', (socket) => {
     console.log('A user connected');
 
-    socket.on('disconnect', () => {
-        console.log('User disconnected');
+    // Manejo de conexión del admin
+    socket.on('adminConnect', () => {
+        // Admin se une a un room especial para recibir todos los mensajes
+        socket.join('admin');
+        console.log('Admin connected and joined admin room');
     });
 
+    // Manejo de conexión de usuarios
+    socket.on('joinAdminRoom', () => {
+        socket.join('admin');
+        console.log('User joined admin room');
+    });
+
+    // Manejo de mensajes
     socket.on('message', (data) => {
         const token = data.token;
+        const message = data.message;
+
         jwt.verify(token, 'Stack', (err, decoded) => {
-            if(err) {
+            if (err) {
                 return socket.emit('message', { message: 'Token inválido', userName: 'System' });
             }
 
-            const message = data.message;
-            const userName = decoded.user; 
-            socket.broadcast.emit('message', { message, userName });
-            socket.emit('message', { message, userName: 'Me' });
+            const userName = decoded.user;
+            const room = 'admin'; // Todos los mensajes van al room 'admin'
+
+            // Guarda el mensaje en la base de datos
+            const newMessage = new Message({ userName, message, room });
+            newMessage.save()
+                .then(() => {
+                    // Envía el mensaje al room del admin
+                    io.to(room).emit('message', { message, userName });
+                })
+                .catch(err => {
+                    console.error('Error saving message:', err);
+                });
         });
+    });
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
     });
 });
 
