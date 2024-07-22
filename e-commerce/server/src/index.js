@@ -6,6 +6,7 @@ const cors = require('cors');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
+const PORT = process.env.PORT || 3000;
 
 // Configuración de Mongoose
 mongoose.connect('mongodb://localhost:27017/messages')
@@ -25,7 +26,6 @@ const Message = mongoose.model('Message', new mongoose.Schema({
 
 
 const app = express();
-const port = 3000;
 const server = http.createServer(app);
 
 const io = socketIo(server, {
@@ -97,6 +97,6 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
+server.listen(PORT, () => {
+    console.log(`Server listening at http://localhost:${PORT}`);
 });
