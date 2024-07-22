@@ -77,7 +77,7 @@ io.on('connection', (socket) => {
             }
 
             const userName = decoded.user;
-            const room = 'admin'; // Todos los mensajes van al room 'admin'
+            const room = 'admin';
 
             // Guarda el mensaje en la base de datos
             const newMessage = new Message({ userName, message, room });
