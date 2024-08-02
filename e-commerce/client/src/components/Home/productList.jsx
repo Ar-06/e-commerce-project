@@ -36,7 +36,7 @@ export function ProductList({ allProducts, setAllProducts, countProducts , setCo
       <div className="container-items">
         {seeProduct.length > 0 ? (
           seeProduct.map((product) => (
-            <div className="card" key={product.id}>
+            <div className="card" key= {product.id}>
               <img
                 src={`http://localhost:3000/images/${product.image}`}
                 alt={product.name}
