@@ -1,0 +1,27 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "server.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/server.js"
+      }
+    ],
+    "env": {
+      "MYSQL_HOST": "localhost",
+        "MYSQL_USER": "root",
+        "MYSQL_PASSWORD": "Ar060904",
+        "MYSQL_DATABASE": "my_store",
+        "MYSQL_PORT": "3306",
+        "JWT_SECRET": "Stack",
+        "JWT_EXPIRES_IN": "1d",
+        "JWT_COOKIE_EXPIRES_IN": "1",
+        "JWT": "jwt"
+}
+
+}
