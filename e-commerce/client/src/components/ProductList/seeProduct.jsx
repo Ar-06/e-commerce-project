@@ -54,7 +54,7 @@ export function SeeProduct() {
     fetchProducts();
   }, []);
 
-  const handleDeleteProduct = async (id) => {
+  const handleDeleteProduct = async (productId) => {
     const token = sessionStorage.getItem("token");
     if (!token) {
       Swal.fire({
@@ -66,7 +66,7 @@ export function SeeProduct() {
     }
 
     try {
-      await axios.delete(`http://localhost:3000/users/products/${id}`, {
+      await axios.delete(`http://localhost:3000/users/products/${productId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -80,7 +80,7 @@ export function SeeProduct() {
         window.location.reload();
       });
 
-      setProducts(products.filter((product) => product.id !== product.id));
+      setProducts(products.filter((product) => product.idProduct !== product.id));
     } catch (error) {
       console.log("Error al eliminar producto", error);
       Swal.fire({
@@ -111,7 +111,7 @@ export function SeeProduct() {
               </thead>
               <tbody>
                 {products.map((product) => (
-                  <tr key={product.id} className={styles.productRow}>
+                  <tr key={product.idProduct} className={styles.productRow}>
                     <td>
                       <img
                         src={`http://localhost:3000/images/${product.image}`}
@@ -125,12 +125,12 @@ export function SeeProduct() {
                     <td>S/{product.price}</td>
                     <td>{product.stock}</td>
                     <td>
-                      <Link to={`/editProduct/${product.id}`}>
+                      <Link to={`/editProduct/${product.idProduct}`}>
                         <button className={styles.editButton}>Editar</button>
                       </Link>
                       <button
                         className={styles.deleteButton}
-                        onClick={() => handleDeleteProduct(product.id)}
+                        onClick={() => handleDeleteProduct(product.idProduct)}
                       >
                         Eliminar
                       </button>

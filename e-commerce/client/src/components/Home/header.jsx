@@ -122,7 +122,7 @@ export function Header({ allProducts, setAllProducts, total, countProducts, setT
                 <>
                   <div className="row-product">
                     {allProducts.map((product) => (
-                      <div className="cart-product" key={product.id}>
+                      <div className="cart-product" key={product.idProduct}>
                         <div className="info-cart-product">
                           <span className="cantidad-producto-carrito">
                             {product.quantity}

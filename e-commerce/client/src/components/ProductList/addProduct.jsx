@@ -7,7 +7,7 @@ import { Header } from "../Home/header";
 import { Footer } from "../Home/footer";
 
 export function AddProductForm() {
-  const { id } = useParams();
+  const { productId } = useParams();
   const navigate = useNavigate();
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
@@ -18,13 +18,13 @@ export function AddProductForm() {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    if (id) {
+    if (productId) {
       setIsEditing(true);
       const fetchProducts = async () => {
         try {
           const token = sessionStorage.getItem("token");
           const response = await axios.get(
-            `http://localhost:3000/products/${id}`,
+            `http://localhost:3000/products/${productId}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ export function AddProductForm() {
       };
       fetchProducts();
     }
-  }, [id]);
+  }, [productId]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -68,7 +68,7 @@ export function AddProductForm() {
       let response;
       if (isEditing) {
         response = await axios.put(
-          `http://localhost:3000/users/products/${id}`,
+          `http://localhost:3000/users/products/${productId}`,
           formData,
           {
             headers: {
